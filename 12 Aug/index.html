@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curated Products</title>
+    
+    <!-- Modern Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: #0a0c10;
+            --card-bg: rgba(22, 27, 38, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --accent-green: #10b981;
+            --accent-gold: #fbbf24;
+            --shadow-glow: 0 12px 30px -10px rgba(99, 102, 241, 0.25);
+            --radius-card: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 60px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Glow Background Accents */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        body::before {
+            background: #6366f1;
+            top: -100px;
+            left: -100px;
+        }
+
+        body::after {
+            background: #a855f7;
+            bottom: 5%;
+            right: -100px;
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 30px;
+            color: #a5b4fc;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Products Grid */
+        #products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 32px;
+        }
+
+        /* Glassmorphism Card Design */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-card);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.01);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Image Display */
+        .card-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .card img {
+            max-width: 85%;
+            max-height: 85%;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.1) rotate(-2deg);
+        }
+
+        /* Floating Rating Pill */
+        .rating {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Content Formatting */
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Card Bottom Actions */
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .price-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+
+        .card h3 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .btn-add {
+            background: var(--primary-gradient);
+            border: none;
+            color: #ffffff;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-add:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 18px rgba(168, 85, 247, 0.5);
+        }
+
+        .btn-add svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 640px) {
+            body {
+                padding: 30px 16px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            #products {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <header>
+            <span class="badge">Exclusive Collection</span>
+            <h1>Featured Products</h1>
+        </header>
+
+        <section id="products"></section>
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

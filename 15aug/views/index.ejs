@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Coffee User Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, #fff8f2, transparent 35%),
+                linear-gradient(135deg, #f7f1ec, #e8ddd5);
+            color: #3e2723;
+        }
+
+        /* ================= HEADER ================= */
+
+        .navbar {
+            background: rgba(78, 52, 46, 0.97);
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 5px 20px rgba(78, 52, 46, 0.25);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #d7b899;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin {
+            background: rgba(255,255,255,0.1);
+            padding: 9px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 40px 5%;
+        }
+
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            gap: 20px;
+        }
+
+        .hero-text h1 {
+            font-size: 42px;
+            color: #4e342e;
+            margin-bottom: 10px;
+        }
+
+        .hero-text h1 span {
+            color: #8b5e3c;
+        }
+
+        .hero-text p {
+            color: #795548;
+            font-size: 17px;
+        }
+
+        .add-btn {
+            text-decoration: none;
+            background: linear-gradient(135deg, #8b5e3c, #5d3a29);
+            color: white;
+            padding: 15px 24px;
+            border-radius: 14px;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(93, 58, 41, 0.3);
+            transition: 0.3s;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(93, 58, 41, 0.4);
+        }
+
+        /* ================= STATS ================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 22px;
+            padding: 28px;
+            box-shadow: 0 12px 35px rgba(78, 52, 46, 0.1);
+            border: 1px solid rgba(111, 78, 55, 0.1);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(139, 94, 60, 0.08);
+            right: -30px;
+            top: -30px;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(78, 52, 46, 0.18);
+        }
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            background: #f3e8df;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            font-size: 25px;
+            margin-bottom: 18px;
+        }
+
+        .stat-card h3 {
+            color: #8d6e63;
+            font-size: 15px;
+        }
+
+        .stat-card h2 {
+            font-size: 38px;
+            margin-top: 8px;
+            color: #4e342e;
+        }
+
+        /* ================= TABLE CARD ================= */
+
+        .dashboard-card {
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(12px);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(78, 52, 46, 0.12);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .table-title h2 {
+            font-size: 28px;
+            color: #4e342e;
+        }
+
+        .table-title p {
+            margin-top: 6px;
+            color: #9b7b6d;
+            font-size: 14px;
+        }
+
+        /* SEARCH */
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 280px;
+            padding: 14px 18px 14px 45px;
+            border-radius: 14px;
+            border: 1px solid #ddcfc7;
+            outline: none;
+            font-size: 14px;
+            background: #fffaf7;
+            transition: 0.3s;
+        }
+
+        .search-box input:focus {
+            width: 330px;
+            border-color: #8b5e3c;
+            box-shadow: 0 0 0 4px rgba(139, 94, 60, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 13px;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        th {
+            text-align: left;
+            padding: 17px;
+            color: #8d6e63;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            background: #fffaf7;
+            padding: 18px;
+            border-top: 1px solid #f0e5df;
+            border-bottom: 1px solid #f0e5df;
+            transition: 0.3s;
+        }
+
+        tr td:first-child {
+            border-radius: 14px 0 0 14px;
+            border-left: 1px solid #f0e5df;
+        }
+
+        tr td:last-child {
+            border-radius: 0 14px 14px 0;
+            border-right: 1px solid #f0e5df;
+        }
+
+        tbody tr:hover td {
+            background: #f6ece6;
+            transform: translateY(-2px);
+        }
+
+        /* USER AVATAR */
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #9c7054, #5d3a29);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .user-name {
+            font-weight: bold;
+            color: #4e342e;
+        }
+
+        .user-email {
+            color: #8d6e63;
+        }
+
+        /* BADGES */
+
+        .id-badge {
+            background: #eee3dc;
+            color: #6f4e37;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .gender {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .male {
+            background: #e7ded8;
+            color: #5d4037;
+        }
+
+        .female {
+            background: #f3e3df;
+            color: #8b4c3d;
+        }
+
+        .other {
+            background: #eee6f3;
+            color: #654a75;
+        }
+
+        /* ACTION BUTTON */
+
+        .view-btn {
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 9px;
+            background: #6f4e37;
+            color: white;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .view-btn:hover {
+            background: #3e2723;
+        }
+
+        /* EMPTY */
+
+        .empty {
+            text-align: center;
+            padding: 50px;
+            color: #8d6e63;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 850px) {
+
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .search-box input,
+            .search-box input:focus {
+                width: 100%;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            ☕ Brew<span>Users</span>
+        </div>
+
+        <div class="nav-right">
+            <div class="admin">
+                👤 Admin Dashboard
+            </div>
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+
+        <!-- HERO -->
+
+        <div class="hero">
+
+            <div class="hero-text">
+
+                <h1>
+                    User <span>Management</span> ☕
+                </h1>
+
+                <p>
+                    Manage, organize and explore your user community.
+                </p>
+
+            </div>
+
+            <a href="/adduser" class="add-btn">
+                ＋ Add New User
+            </a>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">👥</div>
+
+                <h3>Total Users</h3>
+
+                <h2>
+                    <%= users.length %>
+                </h2>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">👨</div>
+
+                <h3>Male Users</h3>
+
+                <h2>
+                    <%= users.filter(user =>
+                        user.gender === "Male"
+                    ).length %>
+                </h2>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">👩</div>
+
+                <h3>Female Users</h3>
+
+                <h2>
+                    <%= users.filter(user =>
+                        user.gender === "Female"
+                    ).length %>
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <!-- USER TABLE -->
+
+        <div class="dashboard-card">
+
+            <div class="table-header">
+
+                <div class="table-title">
+
+                    <h2>All Users</h2>
+
+                    <p>
+                        Browse and manage your registered users
+                    </p>
+
+                </div>
+
+
+                <div class="search-box">
+
+                    <span class="search-icon">
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search users..."
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table id="userTable">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Gender</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <% if (users && users.length > 0) { %>
+
+                            <% users.forEach((user, index) => { %>
+
+                                <tr>
+
+                                    <td>
+
+                                        <span class="id-badge">
+
+                                            #<%= user.id || index + 1 %>
+
+                                        </span>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <div class="user-info">
+
+                                            <div class="avatar">
+
+                                                <%= user.first_name
+                                                    ? user.first_name.charAt(0).toUpperCase()
+                                                    : "U"
+                                                %>
+
+                                            </div>
+
+                                            <div class="user-name">
+
+                                                <%= user.first_name %>
+
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <td class="user-name">
+
+                                        <%= user.last_name %>
+
+                                    </td>
+
+
+                                    <td class="user-email">
+
+                                        <%= user.email %>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <span class="gender
+
+                                            <%= user.gender === 'Male'
+                                                ? 'male'
+                                                : user.gender === 'Female'
+                                                ? 'female'
+                                                : 'other'
+                                            %>">
+
+                                            <%= user.gender %>
+
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+                            <% }) %>
+
+                        <% } else { %>
+
+                            <tr>
+
+                                <td colspan="5">
+
+                                    <div class="empty">
+
+                                        <h2>☕ No Users Yet</h2>
+
+                                        <br>
+
+                                        <p>
+                                            Start by adding your first user!
+                                        </p>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        <% } %>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEARCH SCRIPT -->
+
+    <script>
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        searchInput.addEventListener("keyup", function () {
+
+            const value =
+                this.value.toLowerCase();
+
+            const rows =
+                document.querySelectorAll(
+                    "#userTable tbody tr"
+                );
+
+            rows.forEach(row => {
+
+                const text =
+                    row.innerText.toLowerCase();
+
+                if (text.includes(value)) {
+
+                    row.style.display = "";
+
+                } else {
+
+                    row.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

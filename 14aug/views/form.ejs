@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NOVA | Create Account</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #070b18;
+            color: white;
+            overflow-x: hidden;
+            padding: 40px 20px;
+        }
+
+        /* ================= BACKGROUND ================= */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.45;
+            animation: float 9s infinite alternate ease-in-out;
+        }
+
+        .blob1 {
+            width: 450px;
+            height: 450px;
+            background: #6c63ff;
+            top: -180px;
+            left: -150px;
+        }
+
+        .blob2 {
+            width: 400px;
+            height: 400px;
+            background: #ff4ecd;
+            right: -150px;
+            top: 200px;
+            animation-delay: 2s;
+        }
+
+        .blob3 {
+            width: 350px;
+            height: 350px;
+            background: #00d9ff;
+            bottom: -200px;
+            left: 30%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(50px, 40px) scale(1.15);
+            }
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            width: 90%;
+            max-width: 1100px;
+            height: 65px;
+
+            margin: 0 auto 35px;
+
+            padding: 0 25px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background: rgba(255, 255, 255, 0.07);
+
+            border: 1px solid rgba(255, 255, 255, 0.12);
+
+            border-radius: 18px;
+
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #8c7cff;
+        }
+
+        nav a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        /* ================= FORM CONTAINER ================= */
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+
+            margin: auto;
+
+            padding: 40px;
+
+            background: rgba(255, 255, 255, 0.07);
+
+            border: 1px solid rgba(255, 255, 255, 0.14);
+
+            border-radius: 28px;
+
+            backdrop-filter: blur(25px);
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.4);
+
+            animation: appear 0.8s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 7px 14px;
+
+            margin-bottom: 15px;
+
+            border-radius: 30px;
+
+            background: rgba(140, 124, 255, 0.15);
+
+            border: 1px solid rgba(140, 124, 255, 0.3);
+
+            color: #b5adff;
+
+            font-size: 13px;
+        }
+
+        .header h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 span {
+            background: linear-gradient(
+                90deg,
+                #8c7cff,
+                #ff5bd6,
+                #00d9ff
+            );
+
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .header p {
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 9px;
+
+            font-size: 14px;
+
+            color: #ddd;
+
+            font-weight: bold;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: 17px;
+
+            opacity: 0.7;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+
+            padding: 14px 15px 14px 45px;
+
+            border-radius: 12px;
+
+            border: 1px solid rgba(255, 255, 255, 0.12);
+
+            background: rgba(0, 0, 0, 0.2);
+
+            color: white;
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #777;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #8c7cff;
+
+            box-shadow:
+                0 0 0 3px rgba(140, 124, 255, 0.12);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            background: #111522;
+            color: white;
+        }
+
+        textarea {
+            min-height: 120px;
+
+            resize: vertical;
+
+            padding-left: 15px;
+        }
+
+        /* ================= TWO COLUMNS ================= */
+
+        .row {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 18px;
+        }
+
+        /* ================= GENDER ================= */
+
+        .gender-options {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+        }
+
+        .gender-option {
+            position: relative;
+        }
+
+        .gender-option input {
+            position: absolute;
+
+            opacity: 0;
+        }
+
+        .gender-option label {
+            margin: 0;
+
+            padding: 14px;
+
+            text-align: center;
+
+            border-radius: 12px;
+
+            background: rgba(0, 0, 0, 0.2);
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            font-weight: normal;
+        }
+
+        .gender-option input:checked + label {
+            border-color: #8c7cff;
+
+            background: rgba(140, 124, 255, 0.18);
+
+            color: white;
+
+            box-shadow:
+                0 0 20px rgba(140,124,255,0.15);
+        }
+
+        /* ================= CHECKBOX ================= */
+
+        .terms {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin: 25px 0;
+        }
+
+        .terms input {
+            width: 17px;
+            height: 17px;
+
+            padding: 0;
+
+            accent-color: #8c7cff;
+        }
+
+        .terms label {
+            margin: 0;
+
+            font-weight: normal;
+
+            font-size: 13px;
+
+            color: #999;
+        }
+
+        .terms a {
+            color: #9c91ff;
+            text-decoration: none;
+        }
+
+        /* ================= BUTTON ================= */
+
+        button {
+            width: 100%;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7567ff,
+                    #b34cff
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 10px 30px rgba(117,103,255,0.25);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 15px 35px rgba(117,103,255,0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #777;
+
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: #9c91ff;
+
+            text-decoration: none;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 650px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+            nav {
+                width: 100%;
+            }
+
+            .container {
+                padding: 25px 20px;
+            }
+
+            .header h1 {
+                font-size: 30px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .gender-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="background">
+
+        <div class="blob blob1"></div>
+
+        <div class="blob blob2"></div>
+
+        <div class="blob blob3"></div>
+
+    </div>
+
+
+    <!-- Navbar -->
+
+    <nav>
+
+        <div class="logo">
+            NOVA<span>.</span>
+        </div>
+
+        <a href="/">
+            ← Back to Home
+        </a>
+
+    </nav>
+
+
+    <!-- Form -->
+
+    <div class="container">
+
+        <div class="header">
+
+            <div class="badge">
+                ✨ Join NOVA
+            </div>
+
+            <h1>
+                Create your <span>account</span>
+            </h1>
+
+            <p>
+                Enter your details and become part of our community.
+            </p>
+
+        </div>
+
+
+        <form action="/submit" method="POST">
+
+            <!-- Name + Age -->
+
+            <div class="row">
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <div class="input-box">
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Your name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="age">
+                        Age
+                    </label>
+
+                    <div class="input-box">
+
+                        <span class="input-icon">
+                            🎂
+                        </span>
+
+                        <input
+                            type="number"
+                            id="age"
+                            name="age"
+                            placeholder="Your age"
+                            min="1"
+                            max="100"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Email -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">
+                        ✉️
+                    </span>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Password -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">
+                        🔐
+                    </span>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a strong password"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Gender -->
+
+            <div class="form-group">
+
+                <label>
+                    Gender
+                </label>
+
+                <div class="gender-options">
+
+                    <div class="gender-option">
+
+                        <input
+                            type="radio"
+                            id="male"
+                            name="gender"
+                            value="male"
+                            required
+                        >
+
+                        <label for="male">
+                            👨 Male
+                        </label>
+
+                    </div>
+
+
+                    <div class="gender-option">
+
+                        <input
+                            type="radio"
+                            id="female"
+                            name="gender"
+                            value="female"
+                        >
+
+                        <label for="female">
+                            👩 Female
+                        </label>
+
+                    </div>
+
+
+                    <div class="gender-option">
+
+                        <input
+                            type="radio"
+                            id="other"
+                            name="gender"
+                            value="other"
+                        >
+
+                        <label for="other">
+                            🌈 Other
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- City -->
+
+            <div class="form-group">
+
+                <label for="city">
+                    City
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">
+                        📍
+                    </span>
+
+                    <select id="city" name="city" required>
+
+                        <option value="">
+                            Select your city
+                        </option>
+
+                        <option value="varanasi">
+                            Varanasi
+                        </option>
+
+                        <option value="delhi">
+                            Delhi
+                        </option>
+
+                        <option value="mumbai">
+                            Mumbai
+                        </option>
+
+                        <option value="lucknow">
+                            Lucknow
+                        </option>
+
+                        <option value="bangalore">
+                            Bangalore
+                        </option>
+
+                        <option value="hyderabad">
+                            Hyderabad
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- Message -->
+
+            <div class="form-group">
+
+                <label for="message">
+                    About You
+                </label>
+
+                <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Tell us something about yourself..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- Terms -->
+
+            <div class="terms">
+
+                <input
+                    type="checkbox"
+                    id="terms"
+                    required
+                >
+
+                <label for="terms">
+                    I agree to the
+                    <a href="#">
+                        Terms & Conditions
+                    </a>
+                </label>
+
+            </div>
+
+
+            <!-- Submit -->
+
+            <button type="submit">
+                Create My Account &nbsp; →
+            </button>
+
+        </form>
+
+
+        <div class="footer">
+
+            Already have an account?
+            <a href="#">
+                Sign in
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

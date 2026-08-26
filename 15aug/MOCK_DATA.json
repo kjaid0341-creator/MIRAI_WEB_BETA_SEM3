@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "first_name": "Jaid",
+    "last_name": "Khan",
+    "email": "jaid@example.com",
+    "gender": "Male"
+  },
+  {
+    "id": 2,
+    "first_name": "Rahul",
+    "last_name": "Sharma",
+    "email": "rahul@example.com",
+    "gender": "Male"
+  },
+  {
+    "id": 3,
+    "first_name": "Priya",
+    "last_name": "Singh",
+    "email": "priya@example.com",
+    "gender": "Female"
+  },
+  {
+    "id": 4,
+    "first_name": "zaid",
+    "last_name": "khan",
+    "email": "VAZIRKHAN60521@GMAIL.COM",
+    "gender": "Male"
+  }
+]

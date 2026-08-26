@@ -1,0 +1,1 @@
+CommonJS is a synchronous runtime module system initially built for Node.js, whereas ES Modules is the modern, asynchronous, static standard designed for both browsers and server.
