@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYS/TERM — Terminal Demo</title>
+  <meta name="description" content="A black-and-white terminal aesthetic demo with live Three.js 3D, CSS tilt cards, and typed output." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="app.css" />
+
+  <!-- Three.js (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.min.js"></script>
+</head>
+<body>
+
+  <!-- ── NAV ──────────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-logo">SYS<span>/</span>TERM</span>
+      <ul class="nav-links">
+        <li><a href="#hero">_root</a></li>
+        <li><a href="#features">features</a></li>
+        <li><a href="#output">output</a></li>
+        <li><a href="#stats">metrics</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="page hero">
+
+      <!-- Left col -->
+      <div class="hero-left">
+        <p class="prompt-line">~/project $&nbsp; ready</p>
+
+        <h1 class="hero-title">
+          <span class="hero-title-text">Build without<br />noise.</span>
+          <span class="caret" aria-hidden="true"></span>
+        </h1>
+
+        <p class="hero-sub">
+          A zero-color design system for people who believe
+          constraints produce better work. Monospace.
+          Precise. No distractions.
+        </p>
+
+        <div class="btn-group">
+          <button class="btn" id="btn-start" type="button">init project</button>
+          <button class="btn btn-ghost" id="btn-docs" type="button">read docs</button>
+        </div>
+
+        <!-- Terminal panel -->
+        <div class="terminal" id="output">
+          <div class="terminal-bar" aria-hidden="true">
+            <span class="term-dot"></span>
+            <span class="term-dot"></span>
+            <span class="term-dot"></span>
+          </div>
+          <div class="terminal-body">
+            <pre id="term-output" aria-label="Mock terminal output"></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right col — Three.js canvas -->
+      <div class="hero-canvas-wrapper" id="canvas-wrapper">
+        <canvas id="hero-canvas" aria-label="Rotating 3D wireframe icosahedron"></canvas>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FEATURES (3D tilt cards) ─────────────────────────── -->
+  <section id="features">
+    <div class="page">
+      <p class="section-label">// 01 — capabilities</p>
+      <h2 class="section-title">What ships with this.</h2>
+
+      <div class="cards-grid">
+
+        <!-- Card 1 -->
+        <article class="feat-card" id="card-1">
+          <span class="card-index">01 / primitive</span>
+          <hr class="card-rule" />
+          <span class="card-title">Zero-dependency CSS</span>
+          <span class="card-text">
+            Every visual is produced by pure CSS custom
+            properties and transforms. No framework.
+            No runtime cost. Ships as a single file.
+          </span>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="feat-card" id="card-2">
+          <span class="card-index">02 / geometry</span>
+          <hr class="card-rule" />
+          <span class="card-title">Live WebGL scene</span>
+          <span class="card-text">
+            Three.js renders a wireframe icosahedron with
+            a starfield and smooth mouse parallax. Fully
+            respects prefers-reduced-motion.
+          </span>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="feat-card" id="card-3">
+          <span class="card-index">03 / interaction</span>
+          <hr class="card-rule" />
+          <span class="card-title">Real 3D card tilt</span>
+          <span class="card-text">
+            Each card reads cursor position and applies
+            rotateX/Y transforms. Inner layers sit at
+            different translateZ depths — genuine parallax.
+          </span>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── METRICS ───────────────────────────────────────────── -->
+  <section id="stats">
+    <div class="page">
+      <p class="section-label">// 02 — metrics</p>
+      <h2 class="section-title">Numbers that matter.</h2>
+
+      <div class="stats-strip">
+        <div class="stat-item">
+          <span class="stat-num" data-count="14" data-suffix=" kB">0 kB</span>
+          <span class="stat-label">total gzip</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" data-count="100" data-suffix="">0</span>
+          <span class="stat-label">lighthouse score</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" data-count="1.2" data-suffix="s">0s</span>
+          <span class="stat-label">build time</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" data-count="0" data-suffix=" deps">0 deps</span>
+          <span class="stat-label">runtime deps</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────────── -->
+  <footer>
+    <span>SYS/TERM</span> &nbsp;—&nbsp; built with monospace precision &nbsp;·&nbsp; 2026
+  </footer>
+
+  <!-- App script (after DOM) -->
+  <script src="app.js"></script>
+
+</body>
+</html>
